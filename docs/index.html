@@ -118,8 +118,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     <h2>Transformer and hyper-parameters</h2>
     <p>
-        I used karpathy/nanoGPT<dt-fn>https://github.com/karpathy/nanoGPT</dt-fn> github repository to train our transformer. 
-        Each batch had 16 samples with a block size of 512, and I set gradient accumulation of 2 to make the transformer model fit into our 2x TITAN Xp GPUs. Each evaluation was performed per 1000 iterations. 
+        I used karpathy/nanoGPT<dt-fn>https://github.com/karpathy/nanoGPT</dt-fn> github repository to train the transformer. 
+        Each batch had 16 samples with a block size of 512, and I set gradient accumulation of 2 to make the transformer model fit into 2x TITAN Xp GPUs. Each evaluation was performed per 1000 iterations. 
     </p>
 
     <h2>Code Availability</h2>
