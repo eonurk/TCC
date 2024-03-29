@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         A different method involves masking a part of a previously unobserved pathway while creating new genes using the ones that remain visible from the original pathway (zero-shot). 
         Next, the generated genes of the first pathway could be used as a surrogate (zero<sup>2</sup>-shot). 
         Finally, one can create a contingency table with the surrogate and the masked genes and calculate the p-value with Fisher Exact test, which I named TCC (Figure 2a). 
-        For 1000 unseen pathways, we concealed 80% of their genes and then used the transformer model to generate new tokens to fill in the pathway.
+        For 1000 unseen pathways, I concealed 80% of their genes and then used the transformer model to generate new tokens to fill in the pathway.
         Remarkably, with just 20% of the genes from a pathway, the model was able to fill in 660 out of 1000 pathways with statistically significant overlap after Benjamini-Hochberg correction (Figure 2b).
     </p>
 
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     <p>
         Here, I simply showed that given a large database of pathways, transformers can learn intrinsic relations between genes within pathways even in the extremely high-level of gene masking.
         However, there are many areas this small study did not cover. For instance, these models could be further improved by incorporating the graph nature of the pathways. 
-        Furthermore, we just trained a simple decoder, however, some of these pathways have their detailed annotations which could potentially be used for understanding the language of the cells in human languages. 
+        Furthermore, I just trained a simple decoder, however, some of these pathways have their detailed annotations which could potentially be used for understanding the language of the cells in human languages. 
     </p> 
     
     <h1>Methods</h1>
@@ -118,8 +118,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     <h2>Transformer and hyper-parameters</h2>
     <p>
-        We used karpathy/nanoGPT<dt-fn>https://github.com/karpathy/nanoGPT</dt-fn> github repository to train our transformer. 
-        Each batch had 16 samples with a block size of 512, and we set gradient accumulation of 2 to make the transformer model fit into our 2x TITAN Xp GPUs. Each evaluation was performed per 1000 iterations. 
+        I used karpathy/nanoGPT<dt-fn>https://github.com/karpathy/nanoGPT</dt-fn> github repository to train our transformer. 
+        Each batch had 16 samples with a block size of 512, and I set gradient accumulation of 2 to make the transformer model fit into our 2x TITAN Xp GPUs. Each evaluation was performed per 1000 iterations. 
     </p>
 
     <h2>Code Availability</h2>
