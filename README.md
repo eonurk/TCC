@@ -1,6 +1,6 @@
 # CellTalk
 
-![](public/cellintro.webp)
+![](docs/cellintro.webp)
 
 Can cells talk? Maybe. 
 
