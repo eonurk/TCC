@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         Still with this naïve approach - predicting the next gene - one can hypothesize the transformer model could learn giving more attention to some genes than others in each gene set, 
         therefore essentially learning basic principles of predicting or completing a pathway, or the language.
     </p>
-    <figure class="l-page-outset">
+    <figure >
         <img  src="300ppi/Figure1.png" alt="">
         <figcaption>Figure 1 – (a) An analogy between NLP and Biology where alphabets, tokens and corpus are shown per strata. 
             (b) A naïve approach for training transformer models with pathways. A special end token is appended to each pathway. Then, the pathways are flatten and fed into a Transformer. 
@@ -73,24 +73,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
     <p>
         To test this hypothesis, I curated 263,730 human pathways from Enrichr database <dt-cite key="chen_enrichr_2013"></dt-cite>, 
         and adopted an implementation of GPT-2 (120M) decoder-only model to train a transformer from scratch.
-        I selected 10,000 pathways to be in the validation set and rest in the training set. 
-        Then, trained this model on 2x TITAN Xp GPUs for ~12 hours (Figure 1c).
+        10,000 pathways was selected for validation set and the rest used for training. 
+        Then, the model was on 2x TITAN Xp GPUs for ~12 hours (Figure 1c).
         At this point, although the training loss was still decreasing the validation did not, indicating over-fitting of the model. 
         Therefore, the model with the smallest training error was selected.
-        However, this is not a fair comparison on the validation test as there is no true ordering of the genes within these pathways. 
+        However, the loss function is not a fair measure for the validation test as there is no true ordering of the genes. 
         Therefore, another metric is required for evaluating the performance of the model.
     </p>
 
     <p>
-
         A different method involves masking a part of a previously unobserved pathway while creating new genes using the ones that remain visible from the original pathway (zero-shot). 
         Next, the generated genes of the first pathway could be used as a surrogate (zero<sup>2</sup>-shot). 
-        Finally, one can create a contingency table with the surrogate and the masked genes and calculate the p-value with Fisher Exact test, which I named TCC (Figure 2a). 
-        For 1000 unseen pathways, I concealed 80% of their genes and then used the transformer model to generate new tokens to fill in the pathway.
-        Remarkably, with just 20% of the genes from a pathway, the model was able to fill in 660 out of 1000 pathways with statistically significant overlap after Benjamini-Hochberg correction (Figure 2b).
+        Finally, one can create a contingency table with the surrogate and the masked genes and calculate the p-value with Fisher Exact test, which I named TCC method (Figure 2a). 
+        For 1000 unseen pathways, 80% of their genes were masked and the rest (20%) was used to generate new genes to fill in the first pathway.
+        Remarkably, with just 20% of the genes the model was able to fill in 660 out of 1000 pathways with significant overlap after Benjamini-Hochberg correction of the p-values (Figure 2b; adj P < 0.05).
     </p>
 
-    <figure class="l-page-outset">
+    <figure >
         <img  src="300ppi/Figure2.png" alt="">
         <figcaption>Figure 2 – (a) Talk Cells Can (TCC) method to compare masked genes vs generated genes by the transformer model. 
             80% masking is applied to each pathway. Then, masked genes were predicted via Transformer and these two sets were compared using Fisher Exact test. Background was taken as total token number. (b) -log(p) values from TCC for 1000 unseen pathways. 
